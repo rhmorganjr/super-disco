@@ -15,7 +15,7 @@ function initializeTasksArray() {
 
 function retrieveToday() {
   let current = moment();
-  today.textContent = current;
+  today.textContent = current.format("MMM Do, YYYY hh:mm:ss");
 }
 
 function loadTasks() {
@@ -23,7 +23,7 @@ function loadTasks() {
 
   tasks = JSON.parse(localStorage.getItem("dailyTasks")) || initializeTasksArray();
   lastModified = tasks[0];
-  document.querySelector(".footer").textContent = "Last Modified: "+lastModified;
+  //document.querySelector(".footer").textContent = "Last Modified: "+lastModified;
 
   for (let hour = 1; hour <= 12; hour++) {
 
@@ -46,10 +46,7 @@ function dynamicallyCreateEventListener(hour) {
   $(hourButtonClass).on("click" , function() {
       tasks[hour] = document.getElementById(hourKey).value.trim();
       tasks[0] = moment();
-      lastModified = tasks[0];
       localStorage.setItem("dailyTasks", JSON.stringify(tasks));
-
-      document.querySelector(".footer").textContent = "Last Modified: "+lastModified;
   });
 }
 
